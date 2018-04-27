@@ -45,7 +45,7 @@ public class PokestatsFragment extends Fragment {
             @Override
             public void onResponse(Call<RetrofitPokemonApiCalls.PokemonStats> call, Response<RetrofitPokemonApiCalls.PokemonStats> response) {
                 if(response.isSuccessful()) {
-                    pokestatsText.setText(response.body().getPokemonStats);
+                    pokestatsText.setText(response.body().getStats());
                 } else {
                     Toast.makeText(getContext(), "Try again!", Toast.LENGTH_SHORT).show();
                 }
@@ -60,5 +60,11 @@ public class PokestatsFragment extends Fragment {
     private void buildRetrofit() {
         retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build();
         retrofitPokemonApiCalls = retrofit.create(RetrofitPokemonApiCalls.class);
+    }
+    public static PokestatsFragment newInstance() {
+        Bundle args = new Bundle();
+        PokestatsFragment fragment = new PokestatsFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 }
